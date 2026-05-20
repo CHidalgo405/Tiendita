@@ -21,17 +21,17 @@ export class ProductService {
   readonly mockProducts: Product[] = [
     {
       id: 'prod-1', name: 'Manzana Roja (kg)', description: 'Manzanas rojas frescas de temporada, ideales para toda la familia.',
-      price: 45.90, originalPrice: 54.90, images: [], imageUrl: 'https://loremflickr.com/400/400/apple,food/all', category: 'Frutas y Verduras', categoryId: 'cat-1',
+      price: 45.90, originalPrice: 54.90, images: [], category: 'Frutas y Verduras', categoryId: 'cat-1',
       rating: 4.5, reviewCount: 28, inStock: true, stockQuantity: 50, tags: ['oferta', 'fresco'],
     },
     {
       id: 'prod-2', name: 'Leche Entera 1L', description: 'Leche fresca pasteurizada, rica en calcio y vitaminas.',
-      price: 28.50, images: [], imageUrl: 'https://loremflickr.com/400/400/milk,food/all', category: 'Lácteos', categoryId: 'cat-2',
+      price: 28.50, images: [], category: 'Lácteos', categoryId: 'cat-2',
       rating: 4.8, reviewCount: 45, inStock: true, stockQuantity: 100,
     },
     {
       id: 'prod-3', name: 'Pechuga de Pollo (kg)', description: 'Pechuga de pollo sin hueso, fresca y de la mejor calidad.',
-      price: 129.90, images: [], imageUrl: 'https://loremflickr.com/400/400/chicken,food/all', category: 'Carnes', categoryId: 'cat-3',
+      price: 129.90, images: [], category: 'Carnes', categoryId: 'cat-3',
       rating: 4.3, reviewCount: 19, inStock: true, stockQuantity: 30,
       variants: [
         { id: 'v1', type: 'weight', label: 'Peso', value: '500g', priceModifier: -64.95, inStock: true },
@@ -41,27 +41,27 @@ export class ProductService {
     },
     {
       id: 'prod-4', name: 'Pan Bimbo Grande', description: 'Pan de caja blanco, suave y fresco para toda la familia.',
-      price: 62.00, images: [], imageUrl: 'https://loremflickr.com/400/400/bread,food/all', category: 'Panadería', categoryId: 'cat-4',
+      price: 62.00, images: [], category: 'Panadería', categoryId: 'cat-4',
       rating: 4.1, reviewCount: 33, inStock: true, stockQuantity: 40,
     },
     {
       id: 'prod-5', name: 'Coca-Cola 2L', description: 'Refresco de cola, perfecto para acompañar tus comidas.',
-      price: 35.00, originalPrice: 39.00, images: [], imageUrl: 'https://loremflickr.com/400/400/soda,food/all', category: 'Bebidas', categoryId: 'cat-5',
+      price: 35.00, originalPrice: 39.00, images: [], category: 'Bebidas', categoryId: 'cat-5',
       rating: 4.7, reviewCount: 67, inStock: true, stockQuantity: 200,
     },
     {
       id: 'prod-6', name: 'Doritos Nacho 170g', description: 'Totopos de maíz con sabor a nacho, crujientes y deliciosos.',
-      price: 48.50, images: [], imageUrl: 'https://loremflickr.com/400/400/chips,food/all', category: 'Snacks', categoryId: 'cat-6',
+      price: 48.50, images: [], category: 'Snacks', categoryId: 'cat-6',
       rating: 4.4, reviewCount: 52, inStock: false, stockQuantity: 0,
     },
     {
       id: 'prod-7', name: 'Fabuloso Lavanda 1L', description: 'Limpiador multiusos con aroma a lavanda.',
-      price: 32.90, images: [], imageUrl: 'https://loremflickr.com/400/400/cleaner/all', category: 'Limpieza', categoryId: 'cat-7',
+      price: 32.90, images: [], category: 'Limpieza', categoryId: 'cat-7',
       rating: 4.6, reviewCount: 14, inStock: true, stockQuantity: 60,
     },
     {
       id: 'prod-8', name: 'Plátano (kg)', description: 'Plátanos maduros, ricos en potasio y fibra natural.',
-      price: 22.90, images: [], imageUrl: 'https://loremflickr.com/400/400/banana,food/all', category: 'Frutas y Verduras', categoryId: 'cat-1',
+      price: 22.90, images: [], category: 'Frutas y Verduras', categoryId: 'cat-1',
       rating: 4.2, reviewCount: 31, inStock: true, stockQuantity: 80,
     },
   ];

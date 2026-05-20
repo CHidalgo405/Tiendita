@@ -37,10 +37,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
             <div class="cart-item-wrapper">
               <div class="cart-item" [id]="'cart-item-' + item.id">
                 
-                <img [src]="item.product.imageUrl || 'https://placehold.co/400x400/1C5442/FFFFFF?text=Producto'" 
-                     alt="{{ item.product.name }}" 
-                     class="item-img" 
-                     (error)="handleImageError($event)" />
+                <img [src]="item.product.images?.[0] || 'https://media.istockphoto.com/id/185284489/photo/orange.jpg?s=612x612&w=0&k=20&c=m4EXniUNMHTOUDOZfm2h-dD01M8l3Q00r6T8j7Bf3G0='" alt="Product" class="item-img" referrerpolicy="no-referrer" />
                 
                 <div class="item-info">
                   <h3>{{ item.product.name }}</h3>
@@ -81,8 +78,4 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
 })
 export class Cart {
   protected cartService = inject(CartService);
-
-  handleImageError(event: any): void {
-    event.target.src = 'https://placehold.co/400x400/1C5442/FFFFFF?text=Producto';
-  }
 }
