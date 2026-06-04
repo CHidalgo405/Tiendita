@@ -74,6 +74,14 @@ import { UserService } from '../../../core/services/user.service';
             <span class="menu-text">Términos y Privacidad</span>
             <span class="menu-arrow">›</span>
           </a>
+          @if (authService.user()?.role === 'admin') {
+            <div class="menu-divider"></div>
+            <a routerLink="/admin" class="menu-item" id="menu-admin" style="background-color: var(--primary-alpha); border-radius: 16px; margin: 6px 12px; transition: background 0.3s;">
+              <span class="menu-icon">🛡️</span>
+              <span class="menu-text" style="color: var(--primary); font-weight: 800;">Panel de Administración</span>
+              <span class="menu-arrow" style="color: var(--primary);">›</span>
+            </a>
+          }
         </div>
 
         <button class="logout-btn" (click)="authService.logout()" id="logout-btn">Cerrar Sesión</button>

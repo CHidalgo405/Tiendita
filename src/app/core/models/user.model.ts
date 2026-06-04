@@ -7,6 +7,7 @@ export interface User {
   avatarUrl?: string;
   isVerified: boolean;
   createdAt: Date;
+  role?: 'admin' | 'user';
 }
 
 export interface LoginRequest {

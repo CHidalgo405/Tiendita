@@ -25,14 +25,16 @@ export class AuthService {
 
   login(request: LoginRequest): boolean {
     // Mock login
+    const isAdmin = request.email.toLowerCase().includes('admin');
     const mockUser: User = {
-      id: '1',
-      firstName: 'Carlos',
-      lastName: 'Hernández',
+      id: isAdmin ? '1' : '2',
+      firstName: isAdmin ? 'Carlos' : 'María',
+      lastName: isAdmin ? 'Hernández' : 'López',
       email: request.email,
       phone: '+52 555 123 4567',
       isVerified: true,
       createdAt: new Date(),
+      role: isAdmin ? 'admin' : 'user',
     };
     const mockToken = 'mock-jwt-token-' + Date.now();
 
@@ -52,6 +54,7 @@ export class AuthService {
       phone: request.phone,
       isVerified: false,
       createdAt: new Date(),
+      role: 'user',
     };
     this.currentUser.set(mockUser);
     return true;

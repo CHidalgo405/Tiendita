@@ -357,7 +357,12 @@ export class Login {
       const { email, password } = this.form.value;
       const success = this.authService.login({ email: email!, password: password! });
       if (success) {
-        this.router.navigate(['/home']);
+        const user = this.authService.user();
+        if (user?.role === 'admin') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/home']);
+        }
       } else {
         this.errorMessage = 'Credenciales incorrectas';
       }
