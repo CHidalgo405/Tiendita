@@ -93,6 +93,7 @@ import { CommonModule } from '@angular/common';
           <label>Titular</label>
           <input 
             formControlName="holderName" 
+            maxlength="30"
             placeholder="Nombre en la tarjeta" 
             (focus)="focusInput(cardNameRef)" 
             (blur)="blurInput()" 
