@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
 import { FormsModule } from '@angular/forms';
 import { SlicePipe } from '@angular/common';
 import { ProductService } from '../../../core/services/product.service';
@@ -9,7 +9,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
 @Component({
   selector: 'app-product-manager',
   standalone: true,
-  imports: [RouterLink, FormsModule, MxnCurrencyPipe, SlicePipe],
+  imports: [FormsModule, MxnCurrencyPipe, SlicePipe],
   template: `
     <div class="product-manager">
       <div class="manager-header">

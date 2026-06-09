@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../core/services/order.service';
 import { User } from '../../../core/models/user.model';
@@ -15,7 +15,7 @@ const INITIAL_USERS: User[] = [
 @Component({
   selector: 'app-user-directory',
   standalone: true,
-  imports: [RouterLink, FormsModule, MxnCurrencyPipe],
+  imports: [FormsModule, MxnCurrencyPipe],
   template: `
     <div class="user-directory">
       <div class="manager-header">

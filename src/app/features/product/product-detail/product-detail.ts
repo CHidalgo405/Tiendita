@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
@@ -9,7 +9,7 @@ import { Product, ProductVariant } from '../../../core/models/product.model';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [RouterLink, MxnCurrencyPipe],
+  imports: [MxnCurrencyPipe],
   template: `
     @if (product) {
       <div class="product-detail-page">

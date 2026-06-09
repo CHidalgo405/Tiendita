@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700&display=swap");
+
 .checkout-page {
     padding: 16px;
     padding-bottom: 100px;
@@ -358,7 +360,7 @@
 }
 
 /* ========================================================================== INTEGRACIÓN TARJETA INTERACTIVA 3D MEJORADA Y RESPONSIVA (LÍNEA ÚNICA) ========================================================================== */
-@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700&display=swap");
+
 
 .card-list {
     margin-bottom: -100px;

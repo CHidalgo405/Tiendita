@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../core/services/order.service';
 import { Order, OrderStatus } from '../../../core/models/order.model';
@@ -8,7 +8,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
 @Component({
   selector: 'app-order-tracker',
   standalone: true,
-  imports: [RouterLink, FormsModule, MxnCurrencyPipe],
+  imports: [FormsModule, MxnCurrencyPipe],
   template: `
     <div class="order-tracker">
       <div class="manager-header">
