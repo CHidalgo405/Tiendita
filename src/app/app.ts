@@ -25,7 +25,7 @@ export class App {
   private router = inject(Router);
   showBottomNav = false;
 
-  private hiddenRoutes = ['/auth', '/checkout', '/orders/confirmation', '/orders/error', '/admin'];
+  private hiddenRoutes = ['/auth', '/checkout', '/orders/confirmation', '/orders/error', '/admin', '/product'];
 
   constructor() {
     this.router.events

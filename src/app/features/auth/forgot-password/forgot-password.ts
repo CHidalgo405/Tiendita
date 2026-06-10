@@ -2,15 +2,16 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, IconComponent],
   template: `
     <div class="auth-page" id="forgot-password-page">
       <div class="auth-header">
-        <div class="auth-logo">🔐</div>
+        <div class="auth-logo" style="color: var(--primary);"><app-icon name="lock" size="48" /></div>
         <h1>Recuperar Contraseña</h1>
         <p>Ingresa tu correo y te enviaremos un enlace de recuperación</p>
       </div>

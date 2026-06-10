@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../core/services/order.service';
 import { Order, OrderStatus } from '../../../core/models/order.model';
 import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-order-tracker',
   standalone: true,
-  imports: [FormsModule, MxnCurrencyPipe],
+  imports: [FormsModule, MxnCurrencyPipe, IconComponent],
   template: `
     <div class="order-tracker">
       <div class="manager-header">
@@ -60,7 +61,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
       <!-- Filters & Search Bar -->
       <div class="filters-bar">
         <div class="search-input-wrapper">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"><app-icon name="search" size="18" /></span>
           <input 
             type="text" 
             [(ngModel)]="searchQuery" 
@@ -110,7 +111,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
           </div>
         } @empty {
           <div class="card empty-orders-card">
-            <span class="empty-emoji">📦</span>
+            <span class="empty-emoji"><app-icon name="package" size="48" /></span>
             <h3>No se encontraron pedidos</h3>
             <p>No existen compras en este estado de procesamiento actualmente.</p>
           </div>
@@ -150,7 +151,10 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
           <div class="detail-section">
             <h3 class="section-title">Dirección de Entrega</h3>
             <div class="address-box">
-              <span class="address-icon-badge">📍 {{ selectedOrder()?.shippingAddress?.label }}</span>
+              <span class="address-icon-badge" style="display: inline-flex; align-items: center; gap: 4px;">
+                <app-icon name="map-pin" size="14" />
+                <span>{{ selectedOrder()?.shippingAddress?.label }}</span>
+              </span>
               <h4 class="addr-name">{{ selectedOrder()?.shippingAddress?.fullName }}</h4>
               <p class="addr-text">
                 {{ selectedOrder()?.shippingAddress?.street }} {{ selectedOrder()?.shippingAddress?.exteriorNumber }}
@@ -160,7 +164,10 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
               </p>
               <p class="addr-text">Col. {{ selectedOrder()?.shippingAddress?.neighborhood }}, {{ selectedOrder()?.shippingAddress?.zipCode }}</p>
               <p class="addr-text">{{ selectedOrder()?.shippingAddress?.city }}, {{ selectedOrder()?.shippingAddress?.state }}</p>
-              <p class="addr-phone">📞 Teléfono: {{ selectedOrder()?.shippingAddress?.phone }}</p>
+              <p class="addr-phone" style="display: flex; align-items: center; gap: 4px;">
+                <app-icon name="phone" size="14" />
+                <span>Teléfono: {{ selectedOrder()?.shippingAddress?.phone }}</span>
+              </p>
             </div>
           </div>
 
@@ -170,11 +177,17 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
             <div class="form-row-2">
               <div class="form-group">
                 <label class="label-control">Método de Envío</label>
-                <span class="form-value-tag">{{ selectedOrder()?.shippingMethod === 'express' ? '⚡ Express' : '🚚 Estándar' }}</span>
+                <span class="form-value-tag" style="display: inline-flex; align-items: center; gap: 4px;">
+                  <app-icon [name]="selectedOrder()?.shippingMethod === 'express' ? 'bolt' : 'truck'" size="14" />
+                  <span>{{ selectedOrder()?.shippingMethod === 'express' ? 'Express' : 'Estándar' }}</span>
+                </span>
               </div>
               <div class="form-group">
                 <label class="label-control">Método de Pago</label>
-                <span class="form-value-tag text-uppercase">💳 {{ selectedOrder()?.paymentMethod }}</span>
+                <span class="form-value-tag text-uppercase" style="display: inline-flex; align-items: center; gap: 4px;">
+                  <app-icon name="credit-card" size="14" />
+                  <span>{{ selectedOrder()?.paymentMethod }}</span>
+                </span>
               </div>
             </div>
 
@@ -204,7 +217,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
             <div class="items-list">
               @for (item of selectedOrder()?.items; track item.product.id) {
                 <div class="order-item-row">
-                  <span class="order-item-emoji">🍎</span>
+                  <span class="order-item-emoji"><app-icon name="package" size="18" /></span>
                   <div class="order-item-info">
                     <h4>{{ item.product.name }}</h4>
                     <p>{{ item.product.price | mxnCurrency }} c/u</p>
@@ -217,7 +230,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
               } @empty {
                 <!-- Mock details where items array is empty -->
                 <div class="order-item-row">
-                  <span class="order-item-emoji">🥑</span>
+                  <span class="order-item-emoji"><app-icon name="package" size="18" /></span>
                   <div class="order-item-info">
                     <h4>Manzana Roja y Aguacate (Caja Surtida)</h4>
                     <p>Detalle predefinido de la plataforma</p>
@@ -258,18 +271,18 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
         <div class="modal-footer workflow-actions">
           @if (selectedOrder()?.status === 'pending') {
             <button (click)="cancelOrder()" class="btn btn-secondary flex-grow-1">Cancelar Compra</button>
-            <button (click)="advanceStatus('preparing')" class="btn btn-primary flex-grow-1">Preparar Pedido 🍳</button>
+            <button (click)="advanceStatus('preparing')" class="btn btn-primary flex-grow-1" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">Preparar Pedido <app-icon name="egg" size="18" /></button>
           }
           @if (selectedOrder()?.status === 'preparing') {
             <button (click)="cancelOrder()" class="btn btn-secondary flex-grow-1">Cancelar Compra</button>
-            <button (click)="advanceStatus('shipped')" class="btn btn-primary flex-grow-1">Marcar En Camino 🚚</button>
+            <button (click)="advanceStatus('shipped')" class="btn btn-primary flex-grow-1" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">Marcar En Camino <app-icon name="truck" size="18" /></button>
           }
           @if (selectedOrder()?.status === 'shipped') {
             <button (click)="advanceStatus('preparing')" class="btn btn-secondary flex-grow-1">Regresar a Cocina</button>
-            <button (click)="advanceStatus('delivered')" class="btn btn-primary flex-grow-1">Entregado con Éxito ✅</button>
+            <button (click)="advanceStatus('delivered')" class="btn btn-primary flex-grow-1" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">Entregado con Éxito <app-icon name="check" size="18" /></button>
           }
           @if (selectedOrder()?.status === 'delivered') {
-            <button (click)="advanceStatus('refunded')" class="btn btn-secondary btn-full">Realizar Reembolso ↩️</button>
+            <button (click)="advanceStatus('refunded')" class="btn btn-secondary btn-full" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">Realizar Reembolso <app-icon name="arrow-left" size="18" /></button>
           }
           @if (selectedOrder()?.status === 'cancelled' || selectedOrder()?.status === 'refunded') {
             <div class="closed-flow-msg">

@@ -4,17 +4,18 @@ import { OrderService } from '../../../core/services/order.service';
 import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
 import { Header } from '../../../shared/components/header/header';
 import { DatePipe } from '@angular/common';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-order-history',
   standalone: true,
-  imports: [RouterLink, MxnCurrencyPipe, Header, DatePipe],
+  imports: [RouterLink, MxnCurrencyPipe, Header, DatePipe, IconComponent],
   template: `
     <app-header title="Mis Pedidos" [showBack]="true"></app-header>
     <div class="history-page" id="order-history-page">
       @if (orderService.getOrders().length === 0) {
         <div class="empty-state">
-          <span>📋</span>
+          <span style="display: block; margin-bottom: 12px;"><app-icon name="clipboard" size="48" /></span>
           <h3>Sin pedidos</h3>
           <p>Aún no has realizado ningún pedido.</p>
           <a routerLink="/home" class="btn-shop">Ir a comprar</a>
@@ -50,7 +51,6 @@ import { DatePipe } from '@angular/common';
     .order-info { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); }
     .order-total { font-weight: 700; color: var(--primary); }
     .empty-state { text-align: center; padding: 60px 20px; }
-    .empty-state span { font-size: 3rem; }
     .empty-state h3 { color: var(--text-primary); margin: 12px 0 6px; }
     .empty-state p { color: var(--text-secondary); font-size: 0.85rem; margin: 0 0 16px; }
     .btn-shop { display: inline-block; padding: 10px 24px; background: var(--secondary); color: #fff; border-radius: 9999px; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: background 0.2s; }

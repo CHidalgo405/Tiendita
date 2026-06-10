@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { OrderService } from '../../../core/services/order.service';
 import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RouterLink, MxnCurrencyPipe],
+  imports: [RouterLink, MxnCurrencyPipe, IconComponent],
   template: `
     <div class="dashboard-container">
       <div class="dashboard-header">
@@ -15,15 +16,15 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
           <h1 class="page-title">Panel de Control</h1>
           <p class="page-subtitle">Bienvenido al centro administrativo de Tiendita Maday</p>
         </div>
-        <div class="header-date">
-          <span>📅</span> {{ currentDateLabel }}
+        <div class="header-date" style="display: inline-flex; align-items: center; gap: 6px;">
+          <app-icon name="calendar" size="18" /> {{ currentDateLabel }}
         </div>
       </div>
 
       <!-- KPI Metrics Grid -->
       <div class="kpi-grid">
         <div class="kpi-card" id="kpi-sales">
-          <div class="kpi-icon sales-icon">💰</div>
+          <div class="kpi-icon sales-icon"><app-icon name="dollar-sign" size="24" /></div>
           <div class="kpi-content">
             <h3>Ventas Totales</h3>
             <p class="kpi-value">{{ totalSales() | mxnCurrency }}</p>
@@ -32,7 +33,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
         </div>
 
         <div class="kpi-card" id="kpi-orders">
-          <div class="kpi-icon orders-icon">📦</div>
+          <div class="kpi-icon orders-icon"><app-icon name="package" size="24" /></div>
           <div class="kpi-content">
             <h3>Pedidos Totales</h3>
             <p class="kpi-value">{{ totalOrders() }}</p>
@@ -41,20 +42,24 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
         </div>
 
         <div class="kpi-card" id="kpi-products">
-          <div class="kpi-icon products-icon">🥬</div>
+          <div class="kpi-icon products-icon"><app-icon name="leaf" size="24" /></div>
           <div class="kpi-content">
             <h3>En Catálogo</h3>
             <p class="kpi-value">{{ totalProducts() }}</p>
-            <span class="kpi-trend warning">⚠️ {{ lowStockCount() }} stock bajo</span>
+            <span class="kpi-trend warning" style="display: inline-flex; align-items: center; gap: 4px;">
+              <app-icon name="alert-triangle" size="14" /> {{ lowStockCount() }} stock bajo
+            </span>
           </div>
         </div>
 
         <div class="kpi-card" id="kpi-users">
-          <div class="kpi-icon users-icon">👥</div>
+          <div class="kpi-icon users-icon"><app-icon name="users" size="24" /></div>
           <div class="kpi-content">
             <h3>Clientes Activos</h3>
             <p class="kpi-value">{{ activeUsersCount }}</p>
-            <span class="kpi-trend positive">⭐ 100% verificados</span>
+            <span class="kpi-trend positive" style="display: inline-flex; align-items: center; gap: 4px;">
+              <app-icon name="star" size="14" fill="currentColor" /> 100% verificados
+            </span>
           </div>
         </div>
       </div>
@@ -112,7 +117,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
           <div class="alert-list">
             @for (prod of lowStockProducts(); track prod.id) {
               <div class="alert-item" [class.danger]="prod.stockQuantity === 0">
-                <span class="alert-item-emoji">{{ getCategoryEmoji(prod.categoryId) }}</span>
+                <span class="alert-item-emoji"><app-icon [name]="getCategoryIcon(prod.categoryId)" size="20" /></span>
                 <div class="alert-item-info">
                   <h4>{{ prod.name }}</h4>
                   <p>{{ prod.category }}</p>
@@ -127,7 +132,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
               </div>
             } @empty {
               <div class="empty-state">
-                <span class="empty-emoji">✅</span>
+                <span class="empty-emoji" style="display: flex; justify-content: center;"><app-icon name="check" size="32" color="var(--success)" /></span>
                 <p>Todo el catálogo cuenta con inventario suficiente.</p>
               </div>
             }
@@ -271,8 +276,8 @@ export class Dashboard {
     return logs;
   });
 
-  getCategoryEmoji(categoryId: string): string {
-    return this.productService.getCategories().find((c) => c.id === categoryId)?.icon ?? '📦';
+  getCategoryIcon(categoryId: string): string {
+    return this.productService.getCategories().find((c) => c.id === categoryId)?.icon ?? 'package';
   }
 
   private getDayLabel(date: Date): string {

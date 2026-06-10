@@ -5,11 +5,12 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
 import { Header } from '../../../shared/components/header/header';
 import { DatePipe } from '@angular/common';
 import { Order, OrderStatus } from '../../../core/models/order.model';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-order-detail',
   standalone: true,
-  imports: [MxnCurrencyPipe, Header, DatePipe],
+  imports: [MxnCurrencyPipe, Header, DatePipe, IconComponent],
   template: `
     @if (order) {
       <app-header [title]="order.id" [showBack]="true"></app-header>
@@ -27,7 +28,7 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
 
         @if (order.trackingNumber) {
           <div class="tracking-card">
-            <span class="tracking-icon">📍</span>
+            <span class="tracking-icon" style="display: flex; align-items: center;"><app-icon name="map-pin" size="18" /></span>
             <div>
               <p class="tracking-label">Número de rastreo</p>
               <p class="tracking-number">{{ order.trackingNumber }}</p>
@@ -37,7 +38,7 @@ import { Order, OrderStatus } from '../../../core/models/order.model';
 
         @if (order.estimatedDelivery) {
           <div class="info-card">
-            <span>📅</span>
+            <span style="display: flex; align-items: center;"><app-icon name="calendar" size="18" /></span>
             <p>Entrega estimada: <strong>{{ order.estimatedDelivery | date:'dd/MM/yyyy' }}</strong></p>
           </div>
         }

@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, IconComponent],
   template: `
     <div class="login-container">
       <div class="login-card">
@@ -20,7 +21,7 @@ import { AuthService } from '../../../core/services/auth.service';
           <div class="input-group">
             <label>Correo electrónico</label>
             <div class="input-wrapper">
-              <span class="input-icon">✉️</span>
+              <span class="input-icon" style="display: flex; align-items: center;"><app-icon name="mail" size="20" /></span>
               <input type="email" formControlName="email" placeholder="tu@email.com" />
             </div>
             @if (form.get('email')?.touched && form.get('email')?.hasError('required')) {
@@ -34,10 +35,9 @@ import { AuthService } from '../../../core/services/auth.service';
           <div class="input-group">
             <label>Contraseña</label>
             <div class="input-wrapper">
-              <span class="input-icon">🔒</span>
+              <span class="input-icon" style="display: flex; align-items: center;"><app-icon name="lock" size="20" /></span>
               <input type="password" formControlName="password" placeholder="••••••••" />
-              <!-- Using an emoji for the eye icon as requested, to match the mockup's right side icon -->
-              <span class="input-icon-right">👁️</span>
+              <span class="input-icon-right" style="display: flex; align-items: center;"><app-icon name="eye" size="20" /></span>
             </div>
             @if (form.get('password')?.touched && form.get('password')?.hasError('required')) {
               <span class="error-msg">La contraseña es requerida</span>

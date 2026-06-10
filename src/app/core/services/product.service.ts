@@ -2,14 +2,14 @@ import { Injectable, signal, computed } from '@angular/core';
 import { Product, ProductCategory, ProductReview, SearchFilters } from '../models/product.model';
 
 const INITIAL_CATEGORIES: ProductCategory[] = [
-  { id: 'cat-1', name: 'Frutas y Verduras', icon: '🥬', imageUrl: '', productCount: 24 },
-  { id: 'cat-2', name: 'Lácteos', icon: '🥛', imageUrl: '', productCount: 18 },
-  { id: 'cat-3', name: 'Carnes', icon: '🥩', imageUrl: '', productCount: 15 },
-  { id: 'cat-4', name: 'Panadería', icon: '🍞', imageUrl: '', productCount: 12 },
-  { id: 'cat-5', name: 'Bebidas', icon: '🥤', imageUrl: '', productCount: 30 },
-  { id: 'cat-6', name: 'Snacks', icon: '🍿', imageUrl: '', productCount: 22 },
-  { id: 'cat-7', name: 'Limpieza', icon: '🧹', imageUrl: '', productCount: 16 },
-  { id: 'cat-8', name: 'Cuidado Personal', icon: '🧴', imageUrl: '', productCount: 14 },
+  { id: 'cat-1', name: 'Frutas y Verduras', icon: 'leaf', imageUrl: '', productCount: 24 },
+  { id: 'cat-2', name: 'Lácteos', icon: 'milk', imageUrl: '', productCount: 18 },
+  { id: 'cat-3', name: 'Carnes', icon: 'drumstick', imageUrl: '', productCount: 15 },
+  { id: 'cat-4', name: 'Panadería', icon: 'bread', imageUrl: '', productCount: 12 },
+  { id: 'cat-5', name: 'Bebidas', icon: 'cup-soda', imageUrl: '', productCount: 30 },
+  { id: 'cat-6', name: 'Snacks', icon: 'cookie', imageUrl: '', productCount: 22 },
+  { id: 'cat-7', name: 'Limpieza', icon: 'brush', imageUrl: '', productCount: 16 },
+  { id: 'cat-8', name: 'Cuidado Personal', icon: 'bottle-lotion', imageUrl: '', productCount: 14 },
 ];
 
 const INITIAL_PRODUCTS: Product[] = [
@@ -99,7 +99,15 @@ export class ProductService {
     }
 
     if (storedCategories) {
-      this.categoriesSignal.set(JSON.parse(storedCategories));
+      const parsed = JSON.parse(storedCategories);
+      // If any category still has an emoji icon, reset to initial to ensure they use vector icons
+      const hasEmoji = parsed.some((c: any) => c.icon && /[\u2600-\u27BF]|[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(c.icon));
+      if (hasEmoji) {
+        this.categoriesSignal.set(INITIAL_CATEGORIES);
+        this.saveCategoriesToStorage();
+      } else {
+        this.categoriesSignal.set(parsed);
+      }
     } else {
       this.categoriesSignal.set(INITIAL_CATEGORIES);
       this.saveCategoriesToStorage();

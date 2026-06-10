@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { OrderService } from '../../../core/services/order.service';
 import { UserService } from '../../../core/services/user.service';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, IconComponent],
   template: `
     <div class="profile-layout" id="profile-page">
       <!-- Green Header Background -->
@@ -18,7 +19,7 @@ import { UserService } from '../../../core/services/user.service';
         <div class="header-content">
           <div class="avatar-container">
             <div class="avatar-initials">{{ authService.user()?.firstName?.charAt(0) }}{{ authService.user()?.lastName?.charAt(0) }}</div>
-            <div class="vip-badge">💎 VIP Familia</div>
+            <div class="vip-badge" style="display: flex; align-items: center; gap: 4px;"><app-icon name="gem" size="12" fill="currentColor" /> VIP Familia</div>
           </div>
           <h2 class="user-name">{{ authService.user()?.firstName }} {{ authService.user()?.lastName }}</h2>
         </div>
@@ -46,38 +47,38 @@ import { UserService } from '../../../core/services/user.service';
         <!-- Menu Container -->
         <div class="menu-container">
           <a routerLink="/orders/history" class="menu-item" id="menu-orders">
-            <span class="menu-icon">📋</span>
+            <span class="menu-icon" style="display: flex; align-items: center;"><app-icon name="clipboard" size="18" /></span>
             <span class="menu-text">Mis Pedidos</span>
             <span class="menu-arrow">›</span>
           </a>
           <div class="menu-divider"></div>
           <a routerLink="/profile/addresses" class="menu-item" id="menu-addresses">
-            <span class="menu-icon">📍</span>
+            <span class="menu-icon" style="display: flex; align-items: center;"><app-icon name="map-pin" size="18" /></span>
             <span class="menu-text">Mis Direcciones</span>
             <span class="menu-arrow">›</span>
           </a>
           <div class="menu-divider"></div>
           <a routerLink="/profile/payment-methods" class="menu-item" id="menu-payments">
-            <span class="menu-icon">💳</span>
+            <span class="menu-icon" style="display: flex; align-items: center;"><app-icon name="credit-card" size="18" /></span>
             <span class="menu-text">Métodos de Pago</span>
             <span class="menu-arrow">›</span>
           </a>
           <div class="menu-divider"></div>
           <a routerLink="/profile/help" class="menu-item" id="menu-help">
-            <span class="menu-icon">❓</span>
+            <span class="menu-icon" style="display: flex; align-items: center;"><app-icon name="help-circle" size="18" /></span>
             <span class="menu-text">Centro de Ayuda</span>
             <span class="menu-arrow">›</span>
           </a>
           <div class="menu-divider"></div>
           <a routerLink="/profile/terms" class="menu-item" id="menu-terms">
-            <span class="menu-icon">📄</span>
+            <span class="menu-icon" style="display: flex; align-items: center;"><app-icon name="file-text" size="18" /></span>
             <span class="menu-text">Términos y Privacidad</span>
             <span class="menu-arrow">›</span>
           </a>
           @if (authService.user()?.role === 'admin') {
             <div class="menu-divider"></div>
             <a routerLink="/admin" class="menu-item" id="menu-admin" style="background-color: var(--primary-alpha); border-radius: 16px; margin: 6px 12px; transition: background 0.3s;">
-              <span class="menu-icon">🛡️</span>
+              <span class="menu-icon" style="display: flex; align-items: center;"><app-icon name="shield" size="18" /></span>
               <span class="menu-text" style="color: var(--primary); font-weight: 800;">Panel de Administración</span>
               <span class="menu-arrow" style="color: var(--primary);">›</span>
             </a>

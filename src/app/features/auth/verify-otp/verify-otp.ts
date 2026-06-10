@@ -2,15 +2,16 @@ import { Component, inject, signal, ViewChildren, QueryList, ElementRef, AfterVi
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-verify-otp',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, IconComponent],
   template: `
     <div class="auth-page" id="verify-otp-page">
       <div class="auth-header">
-        <div class="auth-logo">🔢</div>
+        <div class="auth-logo" style="color: var(--primary);"><app-icon name="hash" size="48" /></div>
         <h1>Verificar Cuenta</h1>
         <p>Ingresa el código de 6 dígitos enviado a:</p>
         <p class="email-display">{{ email }}</p>

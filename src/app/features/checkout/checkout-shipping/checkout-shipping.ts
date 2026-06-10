@@ -2,11 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Header } from '../../../shared/components/header/header';
 import { ShippingMethod } from '../../../core/models/order.model';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-checkout-shipping',
   standalone: true,
-  imports: [Header],
+  imports: [Header, IconComponent],
   template: `
     <app-header title="Método de Envío" [showBack]="true"></app-header>
     <div class="checkout-page" id="checkout-shipping-page">
@@ -14,7 +15,7 @@ import { ShippingMethod } from '../../../core/models/order.model';
       <div class="options-list">
         @for (opt of shippingOptions; track opt.key) {
           <div class="option-card" [class.selected]="selected() === opt.key" (click)="selected.set(opt.key)">
-            <span class="opt-icon">{{ opt.icon }}</span>
+            <span class="opt-icon" style="display: flex; align-items: center;"><app-icon [name]="opt.icon" size="24" /></span>
             <div class="opt-info"><h3>{{ opt.label }}</h3><p>{{ opt.description }}</p></div>
             <span class="opt-price">{{ opt.price }}</span>
           </div>
@@ -30,9 +31,9 @@ export class CheckoutShipping {
   selected = signal<ShippingMethod | ''>('');
 
   shippingOptions = [
-    { key: 'standard' as ShippingMethod, icon: '📦', label: 'Envío Estándar', description: '3-5 días hábiles', price: '$49.99' },
-    { key: 'express' as ShippingMethod, icon: '⚡', label: 'Envío Express', description: '1-2 días hábiles', price: '$89.99' },
-    { key: 'pickup' as ShippingMethod, icon: '🏪', label: 'Recoger en tienda', description: 'Disponible en 2 horas', price: 'Gratis' },
+    { key: 'standard' as ShippingMethod, icon: 'package', label: 'Envío Estándar', description: '3-5 días hábiles', price: '$49.99' },
+    { key: 'express' as ShippingMethod, icon: 'bolt', label: 'Envío Express', description: '1-2 días hábiles', price: '$89.99' },
+    { key: 'pickup' as ShippingMethod, icon: 'store', label: 'Recoger en tienda', description: 'Disponible en 2 horas', price: 'Gratis' },
   ];
 
   next(): void { this.router.navigate(['/checkout/payment']); }

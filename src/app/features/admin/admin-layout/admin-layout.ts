@@ -1,17 +1,18 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, IconComponent],
   template: `
     <div class="admin-layout">
       <!-- Desktop Sidebar -->
       <aside class="sidebar">
         <div class="sidebar-header">
-          <span class="logo-emoji">🛡️</span>
+          <span class="logo-emoji"><app-icon name="shield" size="28" /></span>
           <div class="logo-text">
             <h2>Maday Admin</h2>
             <p>Control de Tienda</p>
@@ -20,29 +21,29 @@ import { AuthService } from '../../../core/services/auth.service';
 
         <nav class="sidebar-menu">
           <a routerLink="/admin/dashboard" routerLinkActive="active" class="menu-link">
-            <span class="link-icon">📊</span>
+            <span class="link-icon"><app-icon name="bar-chart" size="20" /></span>
             <span class="link-label">Resumen</span>
           </a>
           <a routerLink="/admin/products" routerLinkActive="active" class="menu-link">
-            <span class="link-icon">🥬</span>
+            <span class="link-icon"><app-icon name="leaf" size="20" /></span>
             <span class="link-label">Productos</span>
           </a>
           <a routerLink="/admin/orders" routerLinkActive="active" class="menu-link">
-            <span class="link-icon">📋</span>
+            <span class="link-icon"><app-icon name="clipboard" size="20" /></span>
             <span class="link-label">Pedidos</span>
           </a>
           <a routerLink="/admin/users" routerLinkActive="active" class="menu-link">
-            <span class="link-icon">👥</span>
+            <span class="link-icon"><app-icon name="users" size="20" /></span>
             <span class="link-label">Usuarios</span>
           </a>
         </nav>
 
         <div class="sidebar-footer">
-          <a routerLink="/home" class="btn-return">
-            <span>🏪</span> Volver a Tienda
+          <a routerLink="/home" class="btn-return" style="display: inline-flex; align-items: center; gap: 8px;">
+            <app-icon name="store" size="18" /> Volver a Tienda
           </a>
-          <button (click)="authService.logout()" class="btn-logout">
-            <span>🚪</span> Cerrar Sesión
+          <button (click)="authService.logout()" class="btn-logout" style="display: inline-flex; align-items: center; gap: 8px;">
+            <app-icon name="log-out" size="18" /> Cerrar Sesión
           </button>
         </div>
       </aside>
@@ -83,26 +84,26 @@ import { AuthService } from '../../../core/services/auth.service';
         </div>
 
         <nav class="drawer-menu">
-          <a routerLink="/admin/dashboard" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link">
-            <span class="link-icon">📊</span> Resumen
+          <a routerLink="/admin/dashboard" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link" style="display: flex; align-items: center; gap: 10px;">
+            <app-icon name="bar-chart" size="20" /> Resumen
           </a>
-          <a routerLink="/admin/products" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link">
-            <span class="link-icon">🥬</span> Productos
+          <a routerLink="/admin/products" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link" style="display: flex; align-items: center; gap: 10px;">
+            <app-icon name="leaf" size="20" /> Productos
           </a>
-          <a routerLink="/admin/orders" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link">
-            <span class="link-icon">📋</span> Pedidos
+          <a routerLink="/admin/orders" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link" style="display: flex; align-items: center; gap: 10px;">
+            <app-icon name="clipboard" size="20" /> Pedidos
           </a>
-          <a routerLink="/admin/users" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link">
-            <span class="link-icon">👥</span> Usuarios
+          <a routerLink="/admin/users" routerLinkActive="active" (click)="toggleMobileMenu()" class="drawer-link" style="display: flex; align-items: center; gap: 10px;">
+            <app-icon name="users" size="20" /> Usuarios
           </a>
         </nav>
 
         <div class="drawer-footer">
-          <a routerLink="/home" class="btn-return">
-            <span>🏪</span> Volver a Tienda
+          <a routerLink="/home" class="btn-return" style="display: inline-flex; align-items: center; gap: 8px;">
+            <app-icon name="store" size="18" /> Volver a Tienda
           </a>
-          <button (click)="authService.logout()" class="btn-logout">
-            <span>🚪</span> Cerrar Sesión
+          <button (click)="authService.logout()" class="btn-logout" style="display: inline-flex; align-items: center; gap: 8px;">
+            <app-icon name="log-out" size="18" /> Cerrar Sesión
           </button>
         </div>
       </div>

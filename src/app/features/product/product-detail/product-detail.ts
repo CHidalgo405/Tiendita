@@ -5,21 +5,19 @@ import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
 import { Product, ProductVariant } from '../../../core/models/product.model';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [MxnCurrencyPipe],
+  imports: [MxnCurrencyPipe, IconComponent],
   template: `
     @if (product) {
       <div class="product-detail-page">
         <!-- Hero Section -->
         <div class="product-hero-section">
-          <button class="back-btn" (click)="goBack()">
-            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
+          <button class="back-btn" (click)="goBack()" style="display: flex; align-items: center; justify-content: center;">
+            <app-icon name="arrow-left" size="24" />
           </button>
           <img src="https://media.istockphoto.com/id/185284489/photo/orange.jpg?s=612x612&w=0&k=20&c=m4EXniUNMHTOUDOZfm2h-dD01M8l3Q00r6T8j7Bf3G0=" alt="Product" class="hero-image" referrerpolicy="no-referrer" />
         </div>
@@ -56,7 +54,11 @@ import { Product, ProductVariant } from '../../../core/models/product.model';
                 <img src="https://ui-avatars.com/api/?name=Victor+Flexin&background=random&color=fff" alt="User" class="reviewer-avatar">
                 <div class="reviewer-info">
                   <h4>Victor Flexin</h4>
-                  <div class="stars">⭐⭐⭐⭐⭐</div>
+                  <div class="stars" style="display: flex; align-items: center; gap: 2px;">
+                    @for (idx of [0, 1, 2, 3, 4]; track idx) {
+                      <app-icon name="star" size="14" fill="currentColor" color="var(--warning)" />
+                    }
+                  </div>
                 </div>
                 <span class="review-date">18 Sep, 2023</span>
               </div>

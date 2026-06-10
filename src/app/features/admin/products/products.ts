@@ -5,11 +5,12 @@ import { SlicePipe } from '@angular/common';
 import { ProductService } from '../../../core/services/product.service';
 import { Product, ProductCategory } from '../../../core/models/product.model';
 import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-product-manager',
   standalone: true,
-  imports: [FormsModule, MxnCurrencyPipe, SlicePipe],
+  imports: [FormsModule, MxnCurrencyPipe, SlicePipe, IconComponent],
   template: `
     <div class="product-manager">
       <div class="manager-header">
@@ -18,11 +19,11 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
           <p class="page-subtitle">Gestiona tu catálogo, precios, existencias y categorías</p>
         </div>
         <div class="header-actions">
-          <button (click)="openCategoryModal()" class="btn btn-secondary">
-            <span>🏷️</span> Categorías
+          <button (click)="openCategoryModal()" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
+            <app-icon name="tag" size="18" /> Categorías
           </button>
-          <button (click)="openAddModal()" class="btn btn-primary">
-            <span>➕</span> Nuevo Producto
+          <button (click)="openAddModal()" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+            <app-icon name="plus" size="18" /> Nuevo Producto
           </button>
         </div>
       </div>
@@ -30,7 +31,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
       <!-- Filters & Search bar -->
       <div class="filters-bar">
         <div class="search-input-wrapper">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"><app-icon name="search" size="18" /></span>
           <input 
             type="text" 
             [(ngModel)]="searchQuery" 
@@ -75,7 +76,7 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
                   <td>
                     <div class="product-info-cell">
                       <div class="product-cell-emoji">
-                        {{ getCategoryEmoji(prod.categoryId) }}
+                        <app-icon [name]="getCategoryIcon(prod.categoryId)" size="24" />
                       </div>
                       <div>
                         <h4 class="product-cell-name">{{ prod.name }}</h4>
@@ -122,15 +123,15 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
                   </td>
                   <td>
                     <div class="action-buttons">
-                      <button (click)="openEditModal(prod)" class="action-btn btn-edit" title="Editar">✏️</button>
-                      <button (click)="deleteProduct(prod)" class="action-btn btn-delete" title="Eliminar">🗑️</button>
+                      <button (click)="openEditModal(prod)" class="action-btn btn-edit" title="Editar" style="display: inline-flex; align-items: center; justify-content: center;"><app-icon name="pencil" size="16" /></button>
+                      <button (click)="deleteProduct(prod)" class="action-btn btn-delete" title="Eliminar" style="display: inline-flex; align-items: center; justify-content: center;"><app-icon name="trash" size="16" /></button>
                     </div>
                   </td>
                 </tr>
               } @empty {
                 <tr>
                   <td colspan="6" class="table-empty">
-                    <span class="empty-emoji">🥬</span>
+                    <span class="empty-emoji"><app-icon name="leaf" size="48" /></span>
                     <p>No se encontraron productos con los filtros seleccionados.</p>
                   </td>
                 </tr>
@@ -282,10 +283,10 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
                 name="catIcon"
                 [(ngModel)]="categoryForm.icon" 
                 required 
-                placeholder="Emoji (Ej. ❄️)"
+                placeholder="Icono (Ej. leaf, bread)"
                 class="form-control icon-input"
               />
-              <button type="submit" class="btn btn-primary btn-icon-only">➕</button>
+              <button type="submit" class="btn btn-primary btn-icon-only" style="display: inline-flex; align-items: center; justify-content: center;"><app-icon name="plus" size="18" /></button>
             </div>
           </form>
 
@@ -296,14 +297,14 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
               @for (cat of productService.getCategories(); track cat.id) {
                 <div class="cat-item-row">
                   <div class="cat-item-info">
-                    <span class="cat-item-emoji">{{ cat.icon }}</span>
+                    <span class="cat-item-emoji" style="display: flex; align-items: center;"><app-icon [name]="cat.icon" size="24" /></span>
                     <div>
                       <h4>{{ cat.name }}</h4>
                       <p>{{ cat.productCount }} productos activos</p>
                     </div>
                   </div>
-                  <button (click)="deleteCategory(cat)" class="action-btn btn-delete btn-sm" [disabled]="cat.productCount > 0" title="Eliminar (Debe estar vacía)">
-                    🗑️
+                  <button (click)="deleteCategory(cat)" class="action-btn btn-delete btn-sm" [disabled]="cat.productCount > 0" title="Eliminar (Debe estar vacía)" style="display: inline-flex; align-items: center; justify-content: center;">
+                    <app-icon name="trash" size="16" />
                   </button>
                 </div>
               }
@@ -373,8 +374,8 @@ export class ProductManager {
     return list;
   });
 
-  getCategoryEmoji(categoryId: string): string {
-    return this.productService.getCategories().find((c) => c.id === categoryId)?.icon ?? '📦';
+  getCategoryIcon(categoryId: string): string {
+    return this.productService.getCategories().find((c) => c.id === categoryId)?.icon ?? 'package';
   }
 
   // --- Stock Quick Adjust ---
