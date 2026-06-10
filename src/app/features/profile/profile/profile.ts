@@ -143,7 +143,7 @@ import { IconComponent } from '../../../shared/components/icon/icon';
             <div class="menu-row-divider"></div>
             <a routerLink="/admin" class="menu-item-row admin-row" id="menu-admin">
               <div class="menu-icon-bg admin-badge-bg">
-                <app-icon name="shield" size="18" color="var(--primary)" />
+                <app-icon name="shield" size="18" />
               </div>
               <div class="menu-item-text">
                 <span class="title admin-title">Panel de Administración</span>
@@ -322,6 +322,9 @@ import { IconComponent } from '../../../shared/components/icon/icon';
       justify-content: center;
       margin-bottom: 2px;
     }
+    .stat-icon-wrapper ::ng-deep svg {
+      stroke: currentColor;
+    }
     .stat-icon-wrapper.orders { background: var(--primary-alpha); color: var(--primary); }
     .stat-icon-wrapper.addresses { background: rgba(125, 175, 50, 0.12); color: var(--accent); }
     .stat-icon-wrapper.payments { background: rgba(225, 75, 50, 0.08); color: var(--danger); }
@@ -402,6 +405,9 @@ import { IconComponent } from '../../../shared/components/icon/icon';
     .menu-icon-bg app-icon {
       color: inherit;
     }
+    .menu-icon-bg app-icon ::ng-deep svg {
+      stroke: currentColor;
+    }
 
     .menu-item-text {
       flex: 1;
@@ -426,6 +432,9 @@ import { IconComponent } from '../../../shared/components/icon/icon';
     .menu-arrow-icon {
       color: var(--text-muted);
       transition: transform 0.25s;
+    }
+    .menu-arrow-icon ::ng-deep svg {
+      stroke: currentColor;
     }
     .menu-item-row:hover .menu-arrow-icon {
       transform: translateX(4px);
