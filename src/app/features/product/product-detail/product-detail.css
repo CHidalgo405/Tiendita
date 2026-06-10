@@ -248,3 +248,32 @@
     margin: 0 auto;
   }
 }
+
+.fav-detail-toggle-btn {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s;
+  outline: none;
+}
+
+.fav-detail-toggle-btn:hover {
+  transform: scale(1.05);
+}
+
+.fav-detail-toggle-btn app-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

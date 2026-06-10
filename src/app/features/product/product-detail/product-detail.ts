@@ -19,6 +19,11 @@ import { IconComponent } from '../../../shared/components/icon/icon';
           <button class="back-btn" (click)="goBack()" style="display: flex; align-items: center; justify-content: center;">
             <app-icon name="arrow-left" size="24" />
           </button>
+
+          <button class="fav-detail-toggle-btn" (click)="toggleFav()" style="display: flex; align-items: center; justify-content: center;" title="Favorito">
+            <app-icon name="heart" size="20" [fill]="isFav() ? 'currentColor' : 'none'" [color]="isFav() ? 'var(--danger)' : 'var(--text-primary)'" />
+          </button>
+
           <img [src]="product.images?.[0] || 'assets/images/productos/placeholder.png'" [alt]="product.name" class="hero-image" />
         </div>
 
@@ -114,5 +119,15 @@ export class ProductDetail implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  toggleFav(): void {
+    if (this.product) {
+      this.productService.toggleFavorite(this.product.id);
+    }
+  }
+
+  isFav(): boolean {
+    return this.product ? this.productService.isFavorite(this.product.id) : false;
   }
 }

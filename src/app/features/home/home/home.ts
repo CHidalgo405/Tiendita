@@ -102,6 +102,11 @@ import { IconComponent } from '../../../shared/components/icon/icon';
                     </div>
                   </div>
                 </a>
+                
+                <button class="fav-toggle-btn" (click)="toggleFav(product.id, $event)" title="Favorito">
+                  <app-icon name="heart" size="16" [fill]="isFav(product.id) ? 'currentColor' : 'none'" [color]="isFav(product.id) ? 'var(--danger)' : 'var(--text-muted)'" />
+                </button>
+
                 @if (product.inStock) {
                   <button class="add-cart-btn" (click)="addToCart(product)" [id]="'add-cart-' + product.id">+</button>
                 }
@@ -130,5 +135,15 @@ export class Home {
 
   addToCart(product: Product): void {
     this.cartService.addItem(product);
+  }
+
+  toggleFav(productId: string, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.productService.toggleFavorite(productId);
+  }
+
+  isFav(productId: string): boolean {
+    return this.productService.isFavorite(productId);
   }
 }
