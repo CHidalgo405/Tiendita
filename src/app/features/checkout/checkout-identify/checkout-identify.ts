@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { Header } from '../../../shared/components/header/header';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-checkout-identify',
   standalone: true,
-  imports: [RouterLink, Header],
+  imports: [RouterLink, Header, IconComponent],
   template: `
     <app-header title="Checkout" [showBack]="true"></app-header>
     <div class="checkout-page" id="checkout-identify-page">
@@ -14,7 +15,7 @@ import { Header } from '../../../shared/components/header/header';
       <h2>¿Cómo deseas continuar?</h2>
       @if (authService.isAuthenticated()) {
         <div class="user-card">
-          <span class="user-icon">👤</span>
+          <span class="user-icon" style="display: flex; align-items: center;"><app-icon name="user" size="24" /></span>
           <div>
             <p class="user-name">{{ authService.user()?.firstName }} {{ authService.user()?.lastName }}</p>
             <p class="user-email">{{ authService.user()?.email }}</p>

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../core/services/order.service';
 import { User } from '../../../core/models/user.model';
 import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 const INITIAL_USERS: User[] = [
   { id: '1', firstName: 'Carlos', lastName: 'Hernández', email: 'carlos.hdz@maday.com', phone: '+52 555 123 4567', isVerified: true, createdAt: new Date('2026-01-10'), role: 'admin' },
@@ -15,7 +16,7 @@ const INITIAL_USERS: User[] = [
 @Component({
   selector: 'app-user-directory',
   standalone: true,
-  imports: [FormsModule, MxnCurrencyPipe],
+  imports: [FormsModule, MxnCurrencyPipe, IconComponent],
   template: `
     <div class="user-directory">
       <div class="manager-header">
@@ -28,7 +29,7 @@ const INITIAL_USERS: User[] = [
       <!-- Search Filters -->
       <div class="filters-bar">
         <div class="search-input-wrapper">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"><app-icon name="search" size="18" /></span>
           <input 
             type="text" 
             [(ngModel)]="searchQuery" 
@@ -68,7 +69,7 @@ const INITIAL_USERS: User[] = [
               </div>
             } @empty {
               <div class="empty-state">
-                <span class="empty-emoji">👥</span>
+                <span class="empty-emoji"><app-icon name="users" size="48" /></span>
                 <p>No se encontraron usuarios coincidentes.</p>
               </div>
             }
@@ -83,8 +84,9 @@ const INITIAL_USERS: User[] = [
                 {{ usr.firstName.charAt(0) }}{{ usr.lastName.charAt(0) }}
               </div>
               <h2>{{ usr.firstName }} {{ usr.lastName }}</h2>
-              <span class="detail-verified-badge" [class.unverified]="!usr.isVerified">
-                {{ usr.isVerified ? '✅ Cuenta Verificada' : '⏳ Verificación Pendiente' }}
+              <span class="detail-verified-badge" [class.unverified]="!usr.isVerified" style="display: inline-flex; align-items: center; gap: 6px;">
+                <app-icon [name]="usr.isVerified ? 'check' : 'clock'" size="16" />
+                <span>{{ usr.isVerified ? 'Cuenta Verificada' : 'Verificación Pendiente' }}</span>
               </span>
             </div>
 
@@ -146,7 +148,7 @@ const INITIAL_USERS: User[] = [
                   </div>
                 } @empty {
                   <div class="empty-purchases">
-                    <span>🛍️</span>
+                    <span class="empty-emoji"><app-icon name="shopping-cart" size="32" /></span>
                     <p>Este usuario no cuenta con pedidos registrados.</p>
                   </div>
                 }
@@ -154,7 +156,7 @@ const INITIAL_USERS: User[] = [
             </div>
           } @else {
             <div class="no-selection-state">
-              <span class="selection-emoji">🛡️</span>
+              <span class="selection-emoji"><app-icon name="shield" size="48" /></span>
               <h3>Selecciona un Usuario</h3>
               <p>Haz clic en cualquier cliente de la lista para examinar su ficha de perfil, roles de acceso e historial de transacciones.</p>
             </div>

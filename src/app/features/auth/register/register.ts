@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, IconComponent],
   template: `
     <div class="register-container">
       <div class="register-card">
@@ -21,7 +22,7 @@ import { AuthService } from '../../../core/services/auth.service';
             <div class="input-group">
               <label>Nombre</label>
               <div class="input-wrapper">
-                <span class="input-icon">👤</span>
+                <span class="input-icon" style="display: flex; align-items: center;"><app-icon name="user" size="18" /></span>
                 <input type="text" formControlName="firstName" placeholder="Tu nombre" />
               </div>
               @if (form.get('firstName')?.touched && form.get('firstName')?.hasError('required')) {
@@ -44,7 +45,7 @@ import { AuthService } from '../../../core/services/auth.service';
           <div class="input-group">
             <label>Correo electrónico</label>
             <div class="input-wrapper">
-              <span class="input-icon">✉️</span>
+              <span class="input-icon" style="display: flex; align-items: center;"><app-icon name="mail" size="18" /></span>
               <input type="email" formControlName="email" placeholder="tu@email.com" />
             </div>
             @if (form.get('email')?.touched && form.get('email')?.hasError('email')) {
@@ -55,7 +56,7 @@ import { AuthService } from '../../../core/services/auth.service';
           <div class="input-group">
             <label>Teléfono</label>
             <div class="input-wrapper">
-              <span class="input-icon">📞</span>
+              <span class="input-icon" style="display: flex; align-items: center;"><app-icon name="phone" size="18" /></span>
               <input type="tel" formControlName="phone" placeholder="+52 555 123 4567" />
             </div>
             @if (form.get('phone')?.touched && form.get('phone')?.hasError('required')) {
@@ -66,9 +67,9 @@ import { AuthService } from '../../../core/services/auth.service';
           <div class="input-group">
             <label>Contraseña</label>
             <div class="input-wrapper">
-              <span class="input-icon">🔒</span>
+              <span class="input-icon" style="display: flex; align-items: center;"><app-icon name="lock" size="18" /></span>
               <input type="password" formControlName="password" placeholder="••••••••" />
-              <span class="input-icon-right">👁️</span>
+              <span class="input-icon-right" style="display: flex; align-items: center;"><app-icon name="eye" size="18" /></span>
             </div>
             @if (form.get('password')?.touched && form.get('password')?.hasError('minlength')) {
               <span class="error-msg">Mínimo 6 caracteres</span>
@@ -78,7 +79,7 @@ import { AuthService } from '../../../core/services/auth.service';
           <div class="input-group">
             <label>Confirmar contraseña</label>
             <div class="input-wrapper">
-              <span class="input-icon">🔒</span>
+              <span class="input-icon" style="display: flex; align-items: center;"><app-icon name="lock" size="18" /></span>
               <input type="password" formControlName="confirmPassword" placeholder="••••••••" />
             </div>
             @if (form.get('confirmPassword')?.touched && form.hasError('mismatch')) {

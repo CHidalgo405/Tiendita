@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { ConnectivityService } from '../../../core/services/connectivity.service';
+import { IconComponent } from '../icon/icon';
 
 @Component({
   selector: 'app-offline-banner',
   standalone: true,
+  imports: [IconComponent],
   template: `
     @if (!connectivity.isOnline()) {
       <div class="offline-banner" id="offline-banner">
-        <span class="offline-icon">📡</span>
+        <span class="offline-icon" style="display: flex; align-items: center;"><app-icon name="wifi-off" size="16" /></span>
         <span>Sin conexión a internet</span>
       </div>
     }

@@ -3,11 +3,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Header } from '../../../shared/components/header/header';
 import { CommonModule } from '@angular/common';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-card-form',
   standalone: true,
-  imports: [ReactiveFormsModule, Header, CommonModule],
+  imports: [ReactiveFormsModule, Header, CommonModule, IconComponent],
   template: `
     <app-header title="Datos de Tarjeta" [showBack]="true"></app-header>
     
@@ -80,23 +81,23 @@ import { CommonModule } from '@angular/common';
         <div class="form-group">
           <label>Número de tarjeta</label>
           <input 
-            formControlName="number" 
-            placeholder="1234 5678 9012 3456" 
-            maxlength="19" 
-            (input)="onNumberInput($event)" 
-            (focus)="focusInput(cardNumberRef)" 
-            (blur)="blurInput()" 
+             formControlName="number" 
+             placeholder="1234 5678 9012 3456" 
+             maxlength="19" 
+             (input)="onNumberInput($event)" 
+             (focus)="focusInput(cardNumberRef)" 
+             (blur)="blurInput()" 
           />
         </div>
         
         <div class="form-group">
           <label>Titular</label>
           <input 
-            formControlName="holderName" 
-            maxlength="30"
-            placeholder="Nombre en la tarjeta" 
-            (focus)="focusInput(cardNameRef)" 
-            (blur)="blurInput()" 
+             formControlName="holderName" 
+             maxlength="30"
+             placeholder="Nombre en la tarjeta" 
+             (focus)="focusInput(cardNameRef)" 
+             (blur)="blurInput()" 
           />
         </div>
         
@@ -104,29 +105,32 @@ import { CommonModule } from '@angular/common';
           <div class="form-group">
             <label>Vencimiento</label>
             <input 
-              formControlName="expiry" 
-              placeholder="MM/AA" 
-              maxlength="5" 
-              (input)="onExpiryInput($event)" 
-              (focus)="focusInput(cardDateRef)" 
-              (blur)="blurInput()" 
+               formControlName="expiry" 
+               placeholder="MM/AA" 
+               maxlength="5" 
+               (input)="onExpiryInput($event)" 
+               (focus)="focusInput(cardDateRef)" 
+               (blur)="blurInput()" 
             />
           </div>
           <div class="form-group">
             <label>CVV</label>
             <input 
-              formControlName="cvv" 
-              type="password" 
-              placeholder="•••" 
-              maxlength="4" 
-              (focus)="flipCard(true)" 
-              (blur)="flipCard(false)" 
+               formControlName="cvv" 
+               type="password" 
+               placeholder="•••" 
+               maxlength="4" 
+               (focus)="flipCard(true)" 
+               (blur)="flipCard(false)" 
             />
           </div>
         </div>
         
         @if (validating()) {
-          <div class="validating-msg">🔄 Validando tarjeta...</div>
+          <div class="validating-msg" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <app-icon name="loader" size="18" className="app-icon-spin" />
+            <span>Validando tarjeta...</span>
+          </div>
         }
         
         <button type="submit" class="btn-continue" [disabled]="form.invalid || validating()" id="save-card-btn">

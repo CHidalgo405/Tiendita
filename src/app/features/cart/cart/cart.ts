@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../../core/services/cart.service';
 import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [RouterLink, FormsModule, MxnCurrencyPipe],
+  imports: [RouterLink, FormsModule, MxnCurrencyPipe, IconComponent],
   template: `
     <div class="cart-page" id="cart-page">
       
@@ -16,17 +17,14 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
         <div class="header-title">
           <h1>Mi Carrito<br>La Familia</h1>
         </div>
-        <button class="search-icon-btn">
-          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
+        <button class="search-icon-btn" style="display: flex; align-items: center; justify-content: center;">
+          <app-icon name="search" size="24" />
         </button>
       </div>
 
       @if (cartService.items().length === 0) {
         <div class="empty-state" id="cart-empty">
-          <span class="empty-icon">🛒</span>
+          <span class="empty-icon" style="display: block; margin-bottom: 12px;"><app-icon name="shopping-cart" size="64" color="var(--text-muted)" /></span>
           <h3>Tu carrito está vacío</h3>
           <p>Agrega productos para empezar a comprar</p>
           <a routerLink="/home" class="btn-explore">Ir a la tienda</a>
@@ -51,11 +49,8 @@ import { MxnCurrencyPipe } from '../../../shared/pipes/currency.pipe';
                   <button (click)="cartService.updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">−</button>
                 </div>
 
-                <button class="delete-btn" (click)="cartService.removeItem(item.id)">
-                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                  </svg>
+                <button class="delete-btn" (click)="cartService.removeItem(item.id)" style="display: flex; align-items: center; justify-content: center;">
+                  <app-icon name="trash" size="20" />
                 </button>
 
               </div>

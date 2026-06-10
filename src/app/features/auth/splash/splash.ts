@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-splash',
   standalone: true,
+  imports: [IconComponent],
   template: `
     <div class="splash-screen" id="splash-screen">
       <div class="splash-content">
-        <div class="splash-logo">🏪</div>
+        <div class="splash-logo" style="color: #fff;"><app-icon name="store" size="64" /></div>
         <h1 class="splash-title">La Familia</h1>
         <p class="splash-tagline">Tu tiendita de confianza</p>
         <div class="splash-loader">
@@ -22,7 +24,7 @@ import { Router } from '@angular/router';
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     }
     .splash-content { text-align: center; animation: fadeInUp 0.8s ease; }
-    .splash-logo { font-size: 4rem; margin-bottom: 16px; animation: bounce 2s infinite; }
+    .splash-logo { margin-bottom: 16px; animation: bounce 2s infinite; display: inline-block; }
     .splash-title { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 0 0 8px; }
     .splash-tagline { font-size: 1rem; color: rgba(255,255,255,0.8); margin: 0 0 40px; }
     .splash-loader { width: 120px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 0 auto; overflow: hidden; }
