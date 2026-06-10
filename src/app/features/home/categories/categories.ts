@@ -2,18 +2,19 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { Header } from '../../../shared/components/header/header';
+import { IconComponent } from '../../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [RouterLink, Header],
+  imports: [RouterLink, Header, IconComponent],
   template: `
     <app-header title="Categorías" [showBack]="true"></app-header>
     <div class="categories-page" id="categories-page">
       <div class="categories-grid">
         @for (cat of productService.getCategories(); track cat.id) {
           <a [routerLink]="['/home/categories', cat.id]" class="category-card" [id]="'category-card-' + cat.id">
-            <span class="cat-icon">{{ cat.icon }}</span>
+            <span class="cat-icon"><app-icon [name]="cat.icon" size="32" /></span>
             <h3>{{ cat.name }}</h3>
             <p>{{ cat.productCount }} productos</p>
           </a>

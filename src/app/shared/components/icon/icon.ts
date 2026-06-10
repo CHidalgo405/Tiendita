@@ -131,27 +131,27 @@ export class IconComponent implements OnInit, OnChanges {
       this.fill = 'currentColor';
     }
 
-    // Resolve size (scale up a bit based on current dimensions)
+    // Resolve size (scale up based on current dimensions, making them slightly larger)
     let numSize = typeof this.size === 'number' ? this.size : parseInt(this.size as string, 10);
     if (isNaN(numSize)) {
       numSize = 24;
     }
     if (numSize <= 12) {
-      this.resolvedSize = numSize + 2; // e.g. 12 -> 14
+      this.resolvedSize = numSize + 3; // e.g. 12 -> 15
     } else if (numSize <= 18) {
-      this.resolvedSize = numSize + 3; // e.g. 16 -> 19, 18 -> 21
+      this.resolvedSize = numSize + 4; // e.g. 16 -> 20, 18 -> 22
     } else if (numSize <= 24) {
-      this.resolvedSize = numSize + 4; // e.g. 20 -> 24, 24 -> 28
+      this.resolvedSize = numSize + 6; // e.g. 20 -> 26, 24 -> 30
     } else if (numSize <= 48) {
-      this.resolvedSize = numSize + 6; // e.g. 32 -> 38, 48 -> 54
+      this.resolvedSize = numSize + 8; // e.g. 32 -> 40, 48 -> 56
     } else {
-      this.resolvedSize = numSize + 8; // e.g. 64 -> 72
+      this.resolvedSize = numSize + 12; // e.g. 64 -> 76
     }
 
     // Resolve color (default to app primary green unless in contrast containers or explicitly defined)
     if (this.color === 'DEFAULT_COLOR') {
       const hasContrastAncestor = this.elementRef.nativeElement.closest(
-        'button, a, .active, .btn-primary, .btn-main, .btn-continue, .btn-pay, .btn-explore, .btn-shop, .btn-home, .btn-return, .btn-logout, .drawer-link.active, .menu-link.active, .vip-badge'
+        '.active, .btn-primary, .btn-main, .btn-continue, .btn-pay, .btn-explore, .btn-shop, .btn-home, .btn-return, .btn-logout, .drawer-link.active, .menu-link.active, .vip-badge'
       );
       if (hasContrastAncestor) {
         this.resolvedColor = 'currentColor';

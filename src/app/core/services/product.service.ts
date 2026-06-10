@@ -100,9 +100,14 @@ export class ProductService {
 
     if (storedCategories) {
       const parsed = JSON.parse(storedCategories);
-      // If any category still has an emoji icon, reset to initial to ensure they use vector icons
-      const hasEmoji = parsed.some((c: any) => c.icon && /[\u2600-\u27BF]|[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(c.icon));
-      if (hasEmoji) {
+      // Reset to initial if any category has no icon, an emoji, or non-alphanumeric icon name
+      const hasInvalidOrEmojiIcon = parsed.some((c: any) => {
+        if (!c.icon) return true;
+        const isEmoji = /[\u2600-\u27BF]|[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(c.icon);
+        const isLegacyEmoji = !/^[a-zA-Z0-9\-]+$/.test(c.icon);
+        return isEmoji || isLegacyEmoji;
+      });
+      if (hasInvalidOrEmojiIcon) {
         this.categoriesSignal.set(INITIAL_CATEGORIES);
         this.saveCategoriesToStorage();
       } else {
