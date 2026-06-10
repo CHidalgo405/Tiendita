@@ -23,11 +23,37 @@ import { IconComponent } from '../../../shared/components/icon/icon';
       </div>
 
       @if (cartService.items().length === 0) {
-        <div class="empty-state" id="cart-empty">
-          <span class="empty-icon" style="display: block; margin-bottom: 12px;"><app-icon name="shopping-cart" size="64" color="var(--text-muted)" /></span>
-          <h3>Tu carrito está vacío</h3>
-          <p>Agrega productos para empezar a comprar</p>
-          <a routerLink="/home" class="btn-explore">Ir a la tienda</a>
+        <div class="empty-cart-state" id="cart-empty">
+          <div class="illustration-container">
+            <div class="glow-ring-outer"></div>
+            <div class="glow-ring-inner"></div>
+            
+            <div class="main-cart-icon-wrapper">
+              <app-icon name="shopping-cart" size="64" color="var(--primary)" />
+            </div>
+
+            <!-- Floating food item bubbles -->
+            <div class="floating-bubble bubble-1">
+              <app-icon name="leaf" size="14" color="var(--primary)" />
+            </div>
+            <div class="floating-bubble bubble-2">
+              <app-icon name="cookie" size="14" color="var(--accent)" />
+            </div>
+            <div class="floating-bubble bubble-3">
+              <app-icon name="bread" size="14" color="var(--secondary)" />
+            </div>
+            <div class="floating-bubble bubble-4">
+              <app-icon name="cup-soda" size="14" color="var(--primary)" />
+            </div>
+          </div>
+          
+          <h3 class="empty-title">¡Tu carrito está muy ligero!</h3>
+          <p class="empty-subtitle">Descubre productos frescos, deliciosos y locales listos para llenar tu mesa familiar.</p>
+          
+          <a routerLink="/home" class="btn-explore-premium">
+            <span>Explorar la Tienda</span>
+            <app-icon name="arrow-right" size="16" color="#ffffff" />
+          </a>
         </div>
       } @else {
         <div class="cart-items">
