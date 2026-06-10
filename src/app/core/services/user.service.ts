@@ -59,6 +59,22 @@ export class UserService {
     return this.paymentMethods();
   }
 
+  addPaymentMethod(pm: Omit<SavedPaymentMethod, 'id'>): void {
+    const newPm: SavedPaymentMethod = { ...pm, id: `pm-${Date.now()}` };
+    if (newPm.isDefault) {
+      this.paymentMethods.set(this.paymentMethods().map((p) => ({ ...p, isDefault: false })));
+    }
+    this.paymentMethods.set([...this.paymentMethods(), newPm]);
+  }
+
+  updatePaymentMethod(pm: SavedPaymentMethod): void {
+    if (pm.isDefault) {
+      this.paymentMethods.set(this.paymentMethods().map((p) => (p.id === pm.id ? pm : { ...p, isDefault: false })));
+    } else {
+      this.paymentMethods.set(this.paymentMethods().map((p) => (p.id === pm.id ? pm : p)));
+    }
+  }
+
   deletePaymentMethod(id: string): void {
     this.paymentMethods.set(this.paymentMethods().filter((p) => p.id !== id));
   }
