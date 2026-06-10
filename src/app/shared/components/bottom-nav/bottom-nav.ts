@@ -46,12 +46,13 @@ import { CartService } from '../../../core/services/cart.service';
         </div>
       </a>
 
-      <a routerLink="/home/favorites" routerLinkActive="active" id="nav-favorites" class="nav-item">
+      <a routerLink="/orders/history" routerLinkActive="active" id="nav-orders" class="nav-item">
         <div class="nav-pill">
           <svg class="nav-icon" viewBox="0 0 24 24">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
+            <rect x="9" y="3" width="6" height="4" rx="1" ry="1"></rect>
           </svg>
-          <span class="nav-label">Favoritos</span>
+          <span class="nav-label">Pedidos</span>
         </div>
       </a>
 
