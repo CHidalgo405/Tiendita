@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, inject, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -6,11 +6,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   standalone: true,
   template: `
     <svg
-      [attr.width]="size"
-      [attr.height]="size"
+      [attr.width]="resolvedSize"
+      [attr.height]="resolvedSize"
       [attr.viewBox]="viewBox"
       [attr.fill]="fill"
-      [attr.stroke]="color"
+      [attr.stroke]="resolvedColor"
       [attr.stroke-width]="strokeWidth"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -34,17 +34,22 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     }
   `]
 })
-export class IconComponent implements OnInit {
+export class IconComponent implements OnInit, OnChanges {
   @Input() name: string = '';
   @Input() size: number | string = 24;
-  @Input() color: string = 'currentColor';
+  @Input() color: string = 'DEFAULT_COLOR';
   @Input() strokeWidth: number | string = 2;
   @Input() fill: string = 'none';
   @Input() className: string = '';
 
   private sanitizer = inject(DomSanitizer);
+  private elementRef = inject(ElementRef);
+  
   protected safeSvgContent: SafeHtml = '';
   protected viewBox: string = '0 0 24 24';
+  
+  protected resolvedColor: string = 'var(--primary)';
+  protected resolvedSize: number = 28;
 
   private icons: Record<string, string> = {
     'leaf': '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 2 5.5a7 7 0 0 1-7 7v6ZM11 20v-6"/>',
@@ -124,6 +129,37 @@ export class IconComponent implements OnInit {
     }
     if (this.name === 'gem' && this.fill !== 'none') {
       this.fill = 'currentColor';
+    }
+
+    // Resolve size (scale up a bit based on current dimensions)
+    let numSize = typeof this.size === 'number' ? this.size : parseInt(this.size as string, 10);
+    if (isNaN(numSize)) {
+      numSize = 24;
+    }
+    if (numSize <= 12) {
+      this.resolvedSize = numSize + 2; // e.g. 12 -> 14
+    } else if (numSize <= 18) {
+      this.resolvedSize = numSize + 3; // e.g. 16 -> 19, 18 -> 21
+    } else if (numSize <= 24) {
+      this.resolvedSize = numSize + 4; // e.g. 20 -> 24, 24 -> 28
+    } else if (numSize <= 48) {
+      this.resolvedSize = numSize + 6; // e.g. 32 -> 38, 48 -> 54
+    } else {
+      this.resolvedSize = numSize + 8; // e.g. 64 -> 72
+    }
+
+    // Resolve color (default to app primary green unless in contrast containers or explicitly defined)
+    if (this.color === 'DEFAULT_COLOR') {
+      const hasContrastAncestor = this.elementRef.nativeElement.closest(
+        'button, a, .active, .btn-primary, .btn-main, .btn-continue, .btn-pay, .btn-explore, .btn-shop, .btn-home, .btn-return, .btn-logout, .drawer-link.active, .menu-link.active, .vip-badge'
+      );
+      if (hasContrastAncestor) {
+        this.resolvedColor = 'currentColor';
+      } else {
+        this.resolvedColor = 'var(--primary)';
+      }
+    } else {
+      this.resolvedColor = this.color;
     }
   }
 }
