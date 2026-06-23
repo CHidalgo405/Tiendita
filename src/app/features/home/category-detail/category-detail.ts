@@ -25,7 +25,7 @@ import { IconComponent } from '../../../shared/components/icon/icon';
           @for (product of products; track product.id) {
             <a [routerLink]="['/product', product.id]" class="product-row" [id]="'prod-row-' + product.id">
               <div class="prod-thumb" style="overflow: hidden;">
-                <img [src]="product.images?.[0] || 'assets/images/productos/placeholder.png'" [alt]="product.name" style="width:100%;height:100%;object-fit:cover;" />
+                <img [src]="product.images[0] || 'assets/images/productos/placeholder.png'" [alt]="product.name" style="width:100%;height:100%;object-fit:cover;" />
               </div>
               <div class="prod-info">
                 <h3>{{ product.name }}</h3>
