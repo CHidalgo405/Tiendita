@@ -32,7 +32,8 @@ const INITIAL_USERS: User[] = [
           <span class="search-icon"><app-icon name="search" size="18" /></span>
           <input 
             type="text" 
-            [(ngModel)]="searchQuery" 
+            [ngModel]="searchQuery()" 
+            (ngModelChange)="searchQuery.set($event)"
             placeholder="Buscar por nombre, apellido o correo electrónico..."
             class="form-control"
           />
@@ -170,7 +171,7 @@ const INITIAL_USERS: User[] = [
 export class UserDirectory {
   protected orderService = inject(OrderService);
 
-  searchQuery = '';
+  searchQuery = signal('');
   usersList = signal<User[]>([]);
   selectedUser = signal<User | null>(null);
 
@@ -204,9 +205,9 @@ export class UserDirectory {
 
   readonly filteredUsers = computed(() => {
     const list = this.usersList();
-    if (!this.searchQuery) return list;
+    if (!this.searchQuery()) return list;
 
-    const q = this.searchQuery.toLowerCase();
+    const q = this.searchQuery().toLowerCase();
     return list.filter(
       (u) =>
         u.firstName.toLowerCase().includes(q) ||
