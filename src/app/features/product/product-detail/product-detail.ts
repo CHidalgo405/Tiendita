@@ -24,7 +24,7 @@ import { IconComponent } from '../../../shared/components/icon/icon';
             <app-icon name="heart" size="20" [fill]="isFav() ? 'currentColor' : 'none'" [color]="isFav() ? 'var(--danger)' : 'var(--text-primary)'" />
           </button>
 
-          <img [src]="product.images?.[0] || 'assets/images/productos/placeholder.png'" [alt]="product.name" class="hero-image" />
+          <img [src]="product.images[0] || 'assets/images/productos/placeholder.png'" [alt]="product.name" class="hero-image" />
         </div>
 
         <!-- Content Area -->
