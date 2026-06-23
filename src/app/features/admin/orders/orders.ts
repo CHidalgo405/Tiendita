@@ -64,7 +64,8 @@ import { IconComponent } from '../../../shared/components/icon/icon';
           <span class="search-icon"><app-icon name="search" size="18" /></span>
           <input 
             type="text" 
-            [(ngModel)]="searchQuery" 
+            [ngModel]="searchQuery()" 
+            (ngModelChange)="searchQuery.set($event)"
             placeholder="Buscar por ID de pedido o nombre de cliente..."
             class="form-control"
           />
@@ -300,7 +301,7 @@ export class OrderTracker {
 
   // Filters State Signals
   selectedTab = signal<string>('all');
-  searchQuery = '';
+  searchQuery = signal('');
 
   // Detail Modal Overlay Signals
   isDetailDrawerOpen = signal<boolean>(false);
@@ -333,8 +334,8 @@ export class OrderTracker {
     }
 
     // Text search
-    if (this.searchQuery) {
-      const q = this.searchQuery.toLowerCase();
+    if (this.searchQuery()) {
+      const q = this.searchQuery().toLowerCase();
       list = list.filter(
         (o) =>
           o.id.toLowerCase().includes(q) ||
