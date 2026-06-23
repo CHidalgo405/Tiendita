@@ -76,7 +76,7 @@ import { IconComponent } from '../../../shared/components/icon/icon';
                   <td>
                     <div class="product-info-cell">
                       <div class="product-cell-emoji" style="overflow: hidden; padding: 0;">
-                        <img [src]="prod.images?.[0] || 'assets/images/productos/placeholder.png'" [alt]="prod.name" style="width:100%;height:100%;object-fit:cover;" />
+                        <img [src]="prod.images[0] || 'assets/images/productos/placeholder.png'" [alt]="prod.name" style="width:100%;height:100%;object-fit:cover;" />
                       </div>
                       <div>
                         <h4 class="product-cell-name">{{ prod.name }}</h4>
