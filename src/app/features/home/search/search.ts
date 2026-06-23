@@ -36,9 +36,14 @@ import { IconComponent } from '../../../shared/components/icon/icon';
         <div class="results-list">
           @for (product of results(); track product.id) {
             <a [routerLink]="['/product', product.id]" class="result-row">
-              <div class="result-info">
-                <h3>{{ product.name }}</h3>
-                <span class="result-cat">{{ product.category }}</span>
+              <div style="display: flex; align-items: center;">
+                <div class="prod-thumb" style="width: 48px; height: 48px; border-radius: 10px; background: var(--surface); display: flex; align-items: center; justify-content: center; overflow: hidden; margin-right: 12px; flex-shrink: 0;">
+                  <img [src]="product.images?.[0] || 'assets/images/productos/placeholder.png'" [alt]="product.name" style="width:100%;height:100%;object-fit:cover;" />
+                </div>
+                <div class="result-info">
+                  <h3>{{ product.name }}</h3>
+                  <span class="result-cat">{{ product.category }}</span>
+                </div>
               </div>
               <span class="result-price">{{ product.price | mxnCurrency }}</span>
             </a>

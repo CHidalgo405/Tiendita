@@ -43,10 +43,8 @@ import { Product } from '../../../core/models/product.model';
               </button>
 
               <a [routerLink]="['/product', product.id]" class="card-link">
-                <div class="card-image-sec">
-                  <span class="category-icon-bg">
-                    <app-icon [name]="getCategoryIcon(product.categoryId)" size="28" />
-                  </span>
+                <div class="card-image-sec" style="overflow: hidden;">
+                  <img [src]="product.images?.[0] || 'assets/images/productos/placeholder.png'" [alt]="product.name" style="width:100%;height:100%;object-fit:cover;" />
                   @if (!product.inStock) {
                     <span class="out-badge">Agotado</span>
                   }
