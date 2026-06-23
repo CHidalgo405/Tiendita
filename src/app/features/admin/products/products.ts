@@ -34,20 +34,21 @@ import { IconComponent } from '../../../shared/components/icon/icon';
           <span class="search-icon"><app-icon name="search" size="18" /></span>
           <input 
             type="text" 
-            [(ngModel)]="searchQuery" 
+            [ngModel]="searchQuery()" 
+            (ngModelChange)="searchQuery.set($event)"
             placeholder="Buscar por nombre o descripción..."
             class="form-control"
           />
         </div>
         <div class="filter-dropdowns">
-          <select [(ngModel)]="selectedCategoryFilter" class="form-control select-control">
+          <select [ngModel]="selectedCategoryFilter()" (ngModelChange)="selectedCategoryFilter.set($event)" class="form-control select-control">
             <option value="">Todas las Categorías</option>
             @for (cat of productService.getCategories(); track cat.id) {
               <option [value]="cat.id">{{ cat.name }}</option>
             }
           </select>
 
-          <select [(ngModel)]="selectedStockFilter" class="form-control select-control">
+          <select [ngModel]="selectedStockFilter()" (ngModelChange)="selectedStockFilter.set($event)" class="form-control select-control">
             <option value="all">Todos los Inventarios</option>
             <option value="instock">En Stock</option>
             <option value="lowstock">Stock Bajo (<=10)</option>
@@ -321,9 +322,9 @@ export class ProductManager {
   protected productService = inject(ProductService);
 
   // Filter bindings
-  searchQuery = '';
-  selectedCategoryFilter = '';
-  selectedStockFilter = 'all';
+  searchQuery = signal('');
+  selectedCategoryFilter = signal('');
+  selectedStockFilter = signal('all');
 
   // Modal State Signals
   isProductModalOpen = signal<boolean>(false);
@@ -352,21 +353,21 @@ export class ProductManager {
   readonly filteredProducts = computed(() => {
     let list = this.productService.getProducts();
 
-    if (this.searchQuery) {
-      const q = this.searchQuery.toLowerCase();
+    if (this.searchQuery()) {
+      const q = this.searchQuery().toLowerCase();
       list = list.filter((p) => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
     }
 
-    if (this.selectedCategoryFilter) {
-      list = list.filter((p) => p.categoryId === this.selectedCategoryFilter);
+    if (this.selectedCategoryFilter()) {
+      list = list.filter((p) => p.categoryId === this.selectedCategoryFilter());
     }
 
-    if (this.selectedStockFilter !== 'all') {
-      if (this.selectedStockFilter === 'instock') {
+    if (this.selectedStockFilter() !== 'all') {
+      if (this.selectedStockFilter() === 'instock') {
         list = list.filter((p) => p.stockQuantity > 0 && p.inStock);
-      } else if (this.selectedStockFilter === 'lowstock') {
+      } else if (this.selectedStockFilter() === 'lowstock') {
         list = list.filter((p) => p.stockQuantity > 0 && p.stockQuantity <= 10);
-      } else if (this.selectedStockFilter === 'out') {
+      } else if (this.selectedStockFilter() === 'out') {
         list = list.filter((p) => p.stockQuantity === 0 || !p.inStock);
       }
     }
